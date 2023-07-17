@@ -1,14 +1,13 @@
-import random
-
 class Node:
-   def __init__(self, size, x, y):
+   def __init__(self, name: str, size: int, x_pos: int, y_pos: int):
+      self.name = name
       self.size = size
-      self.x = x
-      self.y = y
+      self.x_pos = x_pos
+      self.y_pos = y_pos
    
-   def move(self):
-      self.x += random.uniform(-1, 1)
-      self.y += random.uniform(-1, 1)
+   def move(self, x_add, y_add):
+      self.x_pos += x_add
+      self.y_pos += y_add
 
    def collide(self, other):
       if self.distance_to(other) <= self.size + other.size:
@@ -17,4 +16,4 @@ class Node:
       return False
    
    def distance_to(self, other):
-      return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
+      return ((self.x_pos - other.x_pos) ** 2 + (self.y_pos - other.y_pos) ** 2) ** 0.5
