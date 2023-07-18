@@ -8,6 +8,9 @@ class Node:
       self.size = size
       self.x_pos = x_pos
       self.y_pos = y_pos
+
+      self.x_new_pos: int = 0
+      self.y_new_pos: int = 0
    
    def wall_collision(self):
       #see if node collides with the walls given the node bounds
@@ -29,21 +32,11 @@ class Node:
    
    def move(self):
       #define movement and check for wall collisions
-      x_add = random.randint(-MOVERANGE, MOVERANGE)
-      y_add = random.randint(-MOVERANGE, MOVERANGE)
+      self.x_new_pos = random.randint(0 + SIZE, WIDTH - SIZE)
+      self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
 
-      self.x_pos += x_add
-      self.y_pos += y_add
-
-      if self.wall_collision():
-         if self.y_pos - self.size <= 0:
-            self.y_pos = HEIGHT - self.size
-         elif self.y_pos + self.size >= HEIGHT:
-            self.y_pos = self.size
-         elif self.x_pos - self.size <= 0:
-            self.x_pos = WIDTH - self.size
-         elif self.x_pos + self.size >= WIDTH:
-            self.x_pos = self.size
+      self.x_pos = self.x_new_pos
+      self.y_pos = self.y_new_pos
 
    def collide(self, other):
       if self.distance_to(other) <= self.size + other.size:

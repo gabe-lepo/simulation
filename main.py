@@ -11,9 +11,9 @@ canvas = tk.Canvas(window, width=WIDTH, height=HEIGHT)
 canvas.pack()
 
 node_blue = Node(LIST[0]["NAME"], LIST[0]["SIZE"], LIST[0]["X_POS"], LIST[0]["Y_POS"])
-node_red = Node(LIST[1]["NAME"], LIST[1]["SIZE"], LIST[1]["X_POS"], LIST[1]["Y_POS"])
-node_gray = Node(LIST[2]["NAME"], LIST[2]["SIZE"], LIST[2]["X_POS"], LIST[2]["Y_POS"])
-node_white = Node(LIST[3]["NAME"], LIST[3]["SIZE"], LIST[3]["X_POS"], LIST[3]["Y_POS"])
+#node_red = Node(LIST[1]["NAME"], LIST[1]["SIZE"], LIST[1]["X_POS"], LIST[1]["Y_POS"])
+#node_gray = Node(LIST[2]["NAME"], LIST[2]["SIZE"], LIST[2]["X_POS"], LIST[2]["Y_POS"])
+#node_white = Node(LIST[3]["NAME"], LIST[3]["SIZE"], LIST[3]["X_POS"], LIST[3]["Y_POS"])
 
 def draw_grid(event=None):
     canvas_width = canvas.winfo_width()
@@ -35,20 +35,31 @@ def movement_loop():
     canvas.create_oval(node_blue.x_pos - node_blue.size, node_blue.y_pos - node_blue.size,
                        node_blue.x_pos + node_blue.size, node_blue.y_pos + node_blue.size,
                        fill="blue", tags="nodes")
-    canvas.create_oval(node_red.x_pos - node_red.size, node_red.y_pos - node_red.size,
-                       node_red.x_pos + node_red.size, node_red.y_pos + node_red.size,
-                       fill="red", tags="nodes")
-    canvas.create_oval(node_gray.x_pos - node_gray.size, node_gray.y_pos - node_gray.size,
-                       node_gray.x_pos + node_gray.size, node_gray.y_pos + node_gray.size,
-                       fill="gray", tags="nodes")
-    canvas.create_oval(node_white.x_pos - node_white.size, node_white.y_pos - node_white.size,
-                       node_white.x_pos + node_white.size, node_white.y_pos + node_white.size,
-                       fill="white", outline="black", tags="nodes")
+    canvas.create_text(node_blue.x_pos, node_blue.y_pos + 10,
+                       text=f"(x={node_blue.x_pos}, y={node_blue.y_pos})",
+                       fill="black", tags="pos_text")
+    canvas.create_oval(node_blue.x_pos - 5, node_blue.y_pos - 5,
+                       node_blue.x_pos + 5, node_blue.y_pos + 5,
+                       fill="black", outline="", tags="trail")
+#    canvas.create_oval(node_red.x_pos - node_red.size, node_red.y_pos - node_red.size,
+#                       node_red.x_pos + node_red.size, node_red.y_pos + node_red.size,
+#                       fill="red", tags="nodes")
+#    canvas.create_oval(node_gray.x_pos - node_gray.size, node_gray.y_pos - node_gray.size,
+#                       node_gray.x_pos + node_gray.size, node_gray.y_pos + node_gray.size,
+#                       fill="gray", tags="nodes")
+#    canvas.create_oval(node_white.x_pos - node_white.size, node_white.y_pos - node_white.size,
+#                       node_white.x_pos + node_white.size, node_white.y_pos + node_white.size,
+#                       fill="white", outline="black", tags="nodes")
     
+    x_new_pos = node_blue.x_new_pos
+    y_new_pos = node_blue.y_new_pos
     node_blue.move()
-    node_red.move()
-    node_gray.move()
-    node_white.move()
+    canvas.create_line(x_new_pos, y_new_pos, node_blue.x_pos, node_blue.y_pos,
+                       fill="black", tags="line")
+    
+#    node_red.move()
+#    node_gray.move()
+#    node_white.move()
 
     window.after(REFRESH_MS, movement_loop)
 
