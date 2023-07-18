@@ -2,10 +2,7 @@ import tkinter as tk
 import random
 from node import Node
 
-MOVERANGE = 50
-WIDTH = 1024
-HEIGHT = 768
-REFRESH_MS = 1
+from config import *
 
 window = tk.Tk()
 window.title('Simulation')
