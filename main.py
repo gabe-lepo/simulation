@@ -1,5 +1,4 @@
 import tkinter as tk
-import random
 from node import Node
 
 from config import *
@@ -45,69 +44,10 @@ def movement_loop():
                        node_white.x_pos + node_white.size, node_white.y_pos + node_white.size,
                        fill="white", outline="black", tags="nodes")
     
-    blue_top = node_blue.y_pos - node_blue.size
-    blue_right = node_blue.x_pos + node_blue.size
-    blue_bottom = node_blue.y_pos + node_blue.size
-    blue_left = node_blue.x_pos - node_blue.size
-    
-    red_top = node_red.y_pos - node_red.size
-    red_right = node_red.x_pos + node_red.size
-    red_bottom = node_red.y_pos + node_red.size
-    red_left = node_red.x_pos - node_red.size
-
-    gray_top = node_gray.y_pos - node_gray.size
-    gray_right = node_gray.x_pos + node_gray.size
-    gray_bottom = node_gray.y_pos + node_gray.size
-    gray_left = node_gray.x_pos - node_gray.size
-
-    white_top = node_white.y_pos - node_white.size
-    white_right = node_white.x_pos + node_white.size
-    white_bottom = node_white.y_pos + node_white.size
-    white_left = node_white.x_pos - node_white.size
-
-    if blue_top <= 0:
-        node_blue.move(0, MOVERANGE)
-    elif blue_bottom >= HEIGHT:
-        node_blue.move(0, -MOVERANGE)
-    elif blue_right >= WIDTH:
-        node_blue.move(-MOVERANGE, 0)
-    elif blue_left <= 0:
-        node_blue.move(MOVERANGE, 0)
-    else:
-        node_blue.move(random.randint(-MOVERANGE, MOVERANGE), random.randint(-MOVERANGE, MOVERANGE))
-
-    if red_top <= 0:
-        node_red.move(0, MOVERANGE)
-    elif red_bottom >= HEIGHT:
-        node_red.move(0, -MOVERANGE)
-    elif red_right >= WIDTH:
-        node_red.move(-MOVERANGE, 0)
-    elif red_left <= 0:
-        node_red.move(MOVERANGE, 0)
-    else:
-        node_red.move(random.randint(-MOVERANGE, MOVERANGE), random.randint(-MOVERANGE, MOVERANGE))
-
-    if gray_top <= 0:
-        node_gray.move(0, MOVERANGE)
-    elif gray_bottom >= HEIGHT:
-        node_gray.move(0, -MOVERANGE)
-    elif gray_right >= WIDTH:
-        node_gray.move(-MOVERANGE, 0)
-    elif gray_left <= 0:
-        node_gray.move(MOVERANGE, 0)
-    else:
-        node_gray.move(random.randint(-MOVERANGE, MOVERANGE), random.randint(-MOVERANGE, MOVERANGE))
-
-    if white_top <= 0:
-        node_white.move(0, MOVERANGE)
-    elif white_bottom >= HEIGHT:
-        node_white.move(0, -MOVERANGE)
-    elif white_right >= WIDTH:
-        node_white.move(-MOVERANGE, 0)
-    elif white_left <= 0:
-        node_white.move(MOVERANGE, 0)
-    else:
-        node_white.move(random.randint(-MOVERANGE, MOVERANGE), random.randint(-MOVERANGE, MOVERANGE))
+    node_blue.move()
+    node_red.move()
+    node_gray.move()
+    node_white.move()
 
     window.after(REFRESH_MS, movement_loop)
 
