@@ -32,12 +32,18 @@ class Node:
       x_add = random.randint(-MOVERANGE, MOVERANGE)
       y_add = random.randint(-MOVERANGE, MOVERANGE)
 
+      self.x_pos += x_add
+      self.y_pos += y_add
+
       if self.wall_collision():
-         self.x_pos -= x_add
-         self.y_pos -= y_add
-      else:
-         self.x_pos += x_add
-         self.y_pos += y_add
+         if self.y_pos - self.size <= 0:
+            self.y_pos = HEIGHT - self.size
+         elif self.y_pos + self.size >= HEIGHT:
+            self.y_pos = self.size
+         elif self.x_pos - self.size <= 0:
+            self.x_pos = WIDTH - self.size
+         elif self.x_pos + self.size >= WIDTH:
+            self.x_pos = self.size
 
    def collide(self, other):
       if self.distance_to(other) <= self.size + other.size:

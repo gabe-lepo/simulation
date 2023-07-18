@@ -2,6 +2,7 @@ import tkinter as tk
 from node import Node
 
 from config import *
+from node_list import LIST
 
 window = tk.Tk()
 window.title('Simulation')
@@ -9,10 +10,10 @@ window.title('Simulation')
 canvas = tk.Canvas(window, width=WIDTH, height=HEIGHT)
 canvas.pack()
 
-node_blue = Node("blue", 50, (1/4)*WIDTH, (1/4)*HEIGHT)
-node_red = Node("red", 50, (3/4)*WIDTH, (1/4)*HEIGHT)
-node_gray = Node("gray", 50, (1/4)*WIDTH, (3/4)*HEIGHT)
-node_white = Node("white", 50, (3/4)*WIDTH, (3/4)*HEIGHT)
+node_blue = Node(LIST[0]["NAME"], LIST[0]["SIZE"], LIST[0]["X_POS"], LIST[0]["Y_POS"])
+node_red = Node(LIST[1]["NAME"], LIST[1]["SIZE"], LIST[1]["X_POS"], LIST[1]["Y_POS"])
+node_gray = Node(LIST[2]["NAME"], LIST[2]["SIZE"], LIST[2]["X_POS"], LIST[2]["Y_POS"])
+node_white = Node(LIST[3]["NAME"], LIST[3]["SIZE"], LIST[3]["X_POS"], LIST[3]["Y_POS"])
 
 def draw_grid(event=None):
     canvas_width = canvas.winfo_width()
