@@ -13,6 +13,11 @@ class Node:
       self.y_new_pos = 0
       self.x_last_pos = 0
       self.y_last_pos = 0
+
+      self.top_border = self.y_pos - (1/2) * HEIGHT
+      self.bottom_border = self.y_pos + (1/2) * HEIGHT
+      self.left_border = self.x_pos - (1/4) * WIDTH
+      self.right_border = self.x_pos + (1/4) * WIDTH
    
    def move(self, other):
       #define movement and check for wall collisions
@@ -20,8 +25,9 @@ class Node:
       distance_y = other.y_pos - self.y_pos
       
       if self.attitude == "patrol":
-         self.x_new_pos = self.x_pos + int(distance_x * STD_WEIGHT)
-         self.y_new_pos = self.y_pos + int(distance_y * STD_WEIGHT)
+         move_distance = STD_WEIGHT * 50
+         self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
+         self.y_new_pos = self.y_pos + random.randint(-move_distance, move_distance) / STD_WEIGHT
       elif self.attitude == "aggressive":
          self.x_new_pos = self.x_pos + int(distance_x * AGG_WEIGHT)
          self.y_new_pos = self.y_pos + int(distance_y * AGG_WEIGHT)
@@ -30,18 +36,22 @@ class Node:
          self.x_new_pos = self.x_pos - int(distance_x * DEF_WEIGHT)
          self.y_new_pos = self.y_pos - int(distance_y * DEF_WEIGHT)
          self.feed_on(other)
-      
-      self.check_wall_collision()
+
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
-      self.x_pos = self.x_new_pos
-      self.y_pos = self.y_new_pos
+      if self.check_wall_collision():
+         self.x_pos = self.x_last_pos
+         self.y_pos = self.y_last_pos
+      else:
+         self.x_pos = self.x_new_pos
+         self.y_pos = self.y_new_pos
 
    def check_wall_collision(self):
-      if self.x_new_pos > WIDTH or self.x_new_pos < 0:
-         self.x_new_pos = -self.x_pos
-      if self.y_new_pos > HEIGHT or self.y_new_pos < 0:
-         self.y_new_pos = -self.y_pos
+      if (self.x_new_pos + self.size > self.right_border) or (self.x_new_pos - self.size < self.left_border):
+         return True
+      if (self.y_new_pos + self.size > self.bottom_border) or (self.y_new_pos + self.size < self.top_border):
+         return True
+      return False
    
    def feed_on(self, other):
       if self.distance_to(other) <= self.size + other.size and other.size > 0:
