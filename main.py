@@ -19,7 +19,7 @@ red_x_positions = []
 red_y_positions = []
 distance_to = []
 
-def on_close():
+def cleanup():
     window.destroy()
 
     with open("./records/blue_position_record.csv", "w", newline='') as file:
@@ -82,5 +82,5 @@ def movement_loop():
 canvas.bind("<Configure>", draw_grid)
 movement_loop()
 
-window.protocol("WM_DELETE_WINDOW", on_close)
+window.protocol("WM_DELETE_WINDOW", cleanup)
 window.mainloop()
