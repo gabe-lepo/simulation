@@ -48,10 +48,10 @@ def movement_loop():
                        node_red.x_pos + node_red.size, node_red.y_pos + node_red.size,
                        fill="red", tags="nodes")
     
-    node_blue.move("random")
+    node_blue.move("standard")
     blue_x_positions.append(node_blue.x_pos)
     blue_y_positions.append(node_blue.y_pos)
-    node_red.move("random")
+    node_red.move("standard")
     red_x_positions.append(node_red.x_pos)
     red_y_positions.append(node_red.y_pos)
 

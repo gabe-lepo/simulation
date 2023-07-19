@@ -21,12 +21,11 @@ class Node:
          self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
       elif type == "standard":
          self.x_new_pos = self.x_pos + random.choice([-MOVERANGE, MOVERANGE])
+         if self.x_new_pos > WIDTH or self.x_new_pos < 0:
+            self.move("standard")
          self.y_new_pos = self.y_pos + random.choice([-MOVERANGE, MOVERANGE])
-      
-      if self.x_new_pos > WIDTH or self.x_new_pos < 0:
-         self.move("standard")
-      if self.y_new_pos > HEIGHT or self.y_new_pos < 0:
-         self.move("standard")
+         if self.y_new_pos > HEIGHT or self.y_new_pos < 0:
+            self.move("standard")
 
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
