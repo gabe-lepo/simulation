@@ -3,13 +3,13 @@ import random
 
 LIST = [
     {
-      "NAME": "blue",
+      "ATTITUDE": "aggressive",
       "SIZE": random.randint(SIZE, SIZE*4),
       "X_POS": (1/4)*WIDTH,
       "Y_POS": (1/2)*HEIGHT
     },
     {
-      "NAME": "red",
+      "ATTITUDE": "defensive",
       "SIZE": random.randint(SIZE, SIZE*4),
       "X_POS": (3/4)*WIDTH,
       "Y_POS": (1/2)*HEIGHT

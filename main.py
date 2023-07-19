@@ -11,8 +11,8 @@ window.title('Simulation')
 canvas = tk.Canvas(window, width=WIDTH, height=HEIGHT)
 canvas.pack()
 
-node_blue = Node(LIST[0]["NAME"], LIST[0]["SIZE"], LIST[0]["X_POS"], LIST[0]["Y_POS"])
-node_red = Node(LIST[1]["NAME"], LIST[1]["SIZE"], LIST[1]["X_POS"], LIST[1]["Y_POS"])
+node_blue = Node(LIST[0]["ATTITUDE"], LIST[0]["SIZE"], LIST[0]["X_POS"], LIST[0]["Y_POS"])
+node_red = Node(LIST[1]["ATTITUDE"], LIST[1]["SIZE"], LIST[1]["X_POS"], LIST[1]["Y_POS"])
 blue_x_positions = []
 blue_y_positions = []
 red_x_positions = []

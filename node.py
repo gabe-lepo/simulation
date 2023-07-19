@@ -2,9 +2,9 @@ import random
 from config import *
 
 class Node:
-   def __init__(self, name: str, size: int, x_pos: int, y_pos: int):
+   def __init__(self, attitude: str, size: int, x_pos: int, y_pos: int):
       #init the basic attributes
-      self.name = name
+      self.attitude = attitude
       self.size = size
       self.x_pos = x_pos
       self.y_pos = y_pos
@@ -13,6 +13,8 @@ class Node:
       self.y_new_pos = 0
       self.x_last_pos = 0
       self.y_last_pos = 0
+
+
    
    def check_wall_collision(self):
       if self.x_new_pos > WIDTH or self.x_new_pos < 0:
