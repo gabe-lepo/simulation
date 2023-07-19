@@ -9,8 +9,10 @@ class Node:
       self.x_pos = x_pos
       self.y_pos = y_pos
 
-      self.x_new_pos: int = 0
-      self.y_new_pos: int = 0
+      self.x_new_pos = 0
+      self.y_new_pos = 0
+      self.x_last_pos = 0
+      self.y_last_pos = 0
    
    def wall_collision(self):
       #see if node collides with the walls given the node bounds
@@ -30,11 +32,17 @@ class Node:
       else:
          return False
    
-   def move(self):
+   def move(self, type: str):
       #define movement and check for wall collisions
-      self.x_new_pos = random.randint(0 + SIZE, WIDTH - SIZE)
-      self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
-
+      if type == "random":
+         self.x_new_pos = random.randint(0 + SIZE, WIDTH - SIZE)
+         self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
+      elif type == "standard":
+         self.x_new_pos = self.x_pos + random.choice([-MOVERANGE, MOVERANGE])
+         self.y_new_pos = self.y_pos + random.choice([-MOVERANGE, MOVERANGE])
+      
+      self.x_last_pos = self.x_pos
+      self.y_last_pos = self.y_pos
       self.x_pos = self.x_new_pos
       self.y_pos = self.y_new_pos
 
