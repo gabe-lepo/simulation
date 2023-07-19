@@ -91,11 +91,7 @@ def movement_loop():
     node_blue.move(node_red)
     node_red.move(node_blue)
     
-    distance_to.append(node_blue.distance_to(node_red))
-    blue_x_positions.append(node_blue.x_pos)
-    blue_y_positions.append(node_blue.y_pos)
-    red_x_positions.append(node_red.x_pos)
-    red_y_positions.append(node_red.y_pos)
+    
 
     if node_blue.size == 0 or node_red.size == 0:
         canvas.delete("nodes")
@@ -110,6 +106,11 @@ def movement_loop():
                                text="Red Wins", fill="white")
         window.after(REFRESH_MS, movement_loop)
     else:
+        distance_to.append(node_blue.distance_to(node_red))
+        blue_x_positions.append(node_blue.x_pos)
+        blue_y_positions.append(node_blue.y_pos)
+        red_x_positions.append(node_red.x_pos)
+        red_y_positions.append(node_red.y_pos)
         window.after(REFRESH_MS, movement_loop)
     
 canvas.bind("<Configure>", draw_grid)
