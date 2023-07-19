@@ -14,24 +14,6 @@ class Node:
       self.x_last_pos = 0
       self.y_last_pos = 0
    
-   def wall_collision(self):
-      #see if node collides with the walls given the node bounds
-      left = self.x_pos - self.size
-      right = self.x_pos + self.size
-      top = self.y_pos - self.size
-      bottom = self.y_pos + self.size
-
-      if top <= 0:
-         return True
-      elif bottom >= HEIGHT:
-         return True
-      elif left <= 0:
-         return True
-      elif right >= WIDTH:
-         return True
-      else:
-         return False
-   
    def move(self, type: str):
       #define movement and check for wall collisions
       if type == "random":
@@ -45,7 +27,7 @@ class Node:
          self.move("standard")
       if self.y_new_pos > HEIGHT or self.y_new_pos < 0:
          self.move("standard")
-         
+
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
       self.x_pos = self.x_new_pos
