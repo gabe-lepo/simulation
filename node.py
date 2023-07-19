@@ -14,7 +14,7 @@ class Node:
       self.x_last_pos = 0
       self.y_last_pos = 0
    
-   def move(self, type: str):
+   def move(self, type: str, other):
       #define movement and check for wall collisions
       if type == "random":
          self.x_new_pos = random.randint(0 + SIZE, WIDTH - SIZE)
@@ -22,10 +22,17 @@ class Node:
       elif type == "standard":
          self.x_new_pos = self.x_pos + random.choice([-MOVERANGE, MOVERANGE])
          if self.x_new_pos > WIDTH or self.x_new_pos < 0:
-            self.move("standard")
+            self.move("standard", other)
          self.y_new_pos = self.y_pos + random.choice([-MOVERANGE, MOVERANGE])
          if self.y_new_pos > HEIGHT or self.y_new_pos < 0:
-            self.move("standard")
+            self.move("standard", other)
+      elif type == "aggressive":
+         self.x_new_pos = self.distance_to(other) / MOVERANGE
+         self.y_new_pos = self.distance_to(other) / MOVERANGE
+      elif type == "defensive":
+         self.x_new_pos = self.distance_to(other) * MOVERANGE
+         self.y_new_pos = self.distance_to(other) * MOVERANGE
+
 
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
@@ -39,4 +46,4 @@ class Node:
       return False
    
    def distance_to(self, other):
-      return ((self.x_pos - other.x_pos) ** 2 + (self.y_pos - other.y_pos) ** 2) ** 0.5
+      return round(((self.x_pos - other.x_pos) ** 2 + (self.y_pos - other.y_pos) ** 2) ** 0.5)
