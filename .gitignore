@@ -1,4 +1,5 @@
 # Position records
+./records
 *.csv
 
 # Byte-compiled / optimized / DLL files
