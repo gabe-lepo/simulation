@@ -22,23 +22,25 @@ class Node:
       if self.y_new_pos > HEIGHT or self.y_new_pos < 0:
          self.y_new_pos = -self.y_pos
    
-   def move(self, type: str, other):
+   def move(self, other):
       #define movement and check for wall collisions
-      if type == "random":
-         self.x_new_pos = random.randint(0 + SIZE, WIDTH - SIZE)
-         self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
-      else:
-         distance_x = other.x_pos - self.x_pos
-         distance_y = other.y_pos - self.y_pos
-         if type == "aggressive":
-            self.x_new_pos = self.x_pos + int(distance_x * AGG_WEIGHT)
-            self.y_new_pos = self.y_pos + int(distance_y * AGG_WEIGHT)
-            self.check_collide(other)
-         elif type == "defensive":
-            self.x_new_pos = self.x_pos - int(distance_x * DEF_WEIGHT)
-            self.y_new_pos = self.y_pos - int(distance_y * DEF_WEIGHT)
-         self.check_wall_collision()
-
+      distance_x = other.x_pos - self.x_pos
+      distance_y = other.y_pos - self.y_pos
+      
+      if self.attitude == "standard":
+         #self.x_new_pos = random.randint(0 + SIZE, WIDTH - SIZE)
+         #self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
+         self.x_new_pos = self.x_pos + int(distance_x * STD_WEIGHT)
+         self.y_new_pos = self.y_pos + int(distance_y * STD_WEIGHT)
+      elif self.attitude == "aggressive":
+         self.x_new_pos = self.x_pos + int(distance_x * AGG_WEIGHT)
+         self.y_new_pos = self.y_pos + int(distance_y * AGG_WEIGHT)
+         self.check_collide(other)
+      elif self.attitude == "defensive":
+         self.x_new_pos = self.x_pos - int(distance_x * DEF_WEIGHT)
+         self.y_new_pos = self.y_pos - int(distance_y * DEF_WEIGHT)
+      
+      self.check_wall_collision()
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
       self.x_pos = self.x_new_pos

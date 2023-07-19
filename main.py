@@ -29,7 +29,6 @@ def on_close():
             writer.writerow([_, blue_x_positions[_], blue_y_positions[_]])
         blue_x_positions.clear()
         blue_y_positions.clear()
-    print("Blue positions recorded")
     
     with open("./records/red_position_record.csv", "w", newline='') as file:
         writer = csv.writer(file)
@@ -38,7 +37,6 @@ def on_close():
             writer.writerow([_, red_x_positions[_], red_y_positions[_]])
         red_x_positions.clear()
         red_y_positions.clear()
-    print("Red positions recorded")
 
     with open("./records/distance_records.csv", "w", newline='') as file:
         writer = csv.writer(file)
@@ -46,7 +44,6 @@ def on_close():
         for _ in range(len(distance_to)):
             writer.writerow([_, distance_to[_], distance_to[_] - distance_to[_-1]])
         distance_to.clear()
-    print("Distances recorded")
 
 def draw_grid(event=None):
     canvas.create_rectangle(0, 0, WIDTH / 2, HEIGHT, fill="blue", outline="")
@@ -67,14 +64,17 @@ def movement_loop():
         canvas.create_text(node_red.x_pos, node_red.y_pos, text=f"{node_red.size}", fill="black", tags="size")
 
     if node_blue.distance_to(node_red) <= node_red.size*10:
-        node_blue.move("aggressive", node_red)
+        node_blue.attitude = "aggressive"
     else:
-        node_blue.move("standard", node_red)
+        node_blue.attitude = "standard"
 
     if node_red.distance_to(node_blue) <= node_blue.size*10:
-        node_red.move("defensive", node_blue)
+        node_red.attitude = "defensive"
     else:
-        node_red.move("standard", node_blue)
+        node_red.attitude = "standard"
+    
+    node_blue.move(node_red)
+    node_red.move(node_blue)
     
     distance_to.append(node_blue.distance_to(node_red))
     blue_x_positions.append(node_blue.x_pos)
