@@ -44,6 +44,8 @@ def on_close():
         for _ in range(len(distance_to)):
             writer.writerow([_, distance_to[_], distance_to[_] - distance_to[_-1]])
         distance_to.clear()
+    
+    print("Program exited successfully")
 
 def draw_grid(event=None):
     canvas.create_rectangle(0, 0, WIDTH / 2, HEIGHT, fill="blue", outline="")
@@ -63,15 +65,8 @@ def movement_loop():
                         fill="red", tags="nodes")
         canvas.create_text(node_red.x_pos, node_red.y_pos, text=f"{node_red.size}", fill="black", tags="size")
 
-    if node_blue.distance_to(node_red) <= node_red.size*10:
-        node_blue.attitude = "aggressive"
-    else:
-        node_blue.attitude = "standard"
-
-    if node_red.distance_to(node_blue) <= node_blue.size*10:
-        node_red.attitude = "defensive"
-    else:
-        node_red.attitude = "standard"
+    node_blue.attitude = "patrol"
+    node_red.attitude = "patrol"
     
     node_blue.move(node_red)
     node_red.move(node_blue)
