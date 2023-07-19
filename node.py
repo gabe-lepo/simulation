@@ -28,8 +28,6 @@ class Node:
       distance_y = other.y_pos - self.y_pos
       
       if self.attitude == "standard":
-         #self.x_new_pos = random.randint(0 + SIZE, WIDTH - SIZE)
-         #self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
          self.x_new_pos = self.x_pos + int(distance_x * STD_WEIGHT)
          self.y_new_pos = self.y_pos + int(distance_y * STD_WEIGHT)
       elif self.attitude == "aggressive":
