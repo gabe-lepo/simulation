@@ -14,6 +14,12 @@ class Node:
       self.x_last_pos = 0
       self.y_last_pos = 0
    
+   def check_wall_collision(self):
+      if self.x_new_pos > WIDTH or self.x_new_pos < 0:
+         self.x_new_pos = -self.x_pos
+      if self.y_new_pos > HEIGHT or self.y_new_pos < 0:
+         self.y_new_pos = -self.y_pos
+   
    def move(self, type: str, other):
       #define movement and check for wall collisions
       if type == "random":
@@ -21,29 +27,29 @@ class Node:
          self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
       elif type == "standard":
          self.x_new_pos = self.x_pos + random.choice([-MOVERANGE, MOVERANGE])
-         if self.x_new_pos > WIDTH or self.x_new_pos < 0:
-            self.move("standard", other)
          self.y_new_pos = self.y_pos + random.choice([-MOVERANGE, MOVERANGE])
-         if self.y_new_pos > HEIGHT or self.y_new_pos < 0:
-            self.move("standard", other)
-      elif type == "aggressive":
-         self.x_new_pos = self.distance_to(other) / MOVERANGE
-         self.y_new_pos = self.distance_to(other) / MOVERANGE
-      elif type == "defensive":
-         self.x_new_pos = self.distance_to(other) * MOVERANGE
-         self.y_new_pos = self.distance_to(other) * MOVERANGE
-
+         self.check_wall_collision()
+      else:
+         distance_x = other.x_pos - self.x_pos
+         distance_y = other.y_pos - self.y_pos
+         if type == "aggressive":
+            self.x_new_pos = self.x_pos + int(distance_x * AGG_WEIGHT)
+            self.y_new_pos = self.y_pos + int(distance_y * AGG_WEIGHT)
+            self.check_collide(other)
+         elif type == "defensive":
+            self.x_new_pos = self.x_pos - int(distance_x * DEF_WEIGHT)
+            self.y_new_pos = self.y_pos - int(distance_y * DEF_WEIGHT)
+         self.check_wall_collision()
 
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
       self.x_pos = self.x_new_pos
       self.y_pos = self.y_new_pos
 
-   def collide(self, other):
+   def check_collide(self, other):
       if self.distance_to(other) <= self.size + other.size:
-         self.size += other.size
-         return True
-      return False
+         self.size += 1
+         other.size -= 1
    
    def distance_to(self, other):
       return round(((self.x_pos - other.x_pos) ** 2 + (self.y_pos - other.y_pos) ** 2) ** 0.5)

@@ -22,23 +22,25 @@ distance_to = []
 def on_close():
     window.destroy()
 
-    with open("blue_position_record.csv", "w", newline='') as file:
+    with open("./records/blue_position_record.csv", "w", newline='') as file:
         writer = csv.writer(file)
+        writer.writerow(['Iteration', 'x_pos', 'y_pos'])
         for _ in range(len(blue_x_positions)):
             writer.writerow([_, blue_x_positions[_], blue_y_positions[_]])
         blue_x_positions.clear()
         blue_y_positions.clear()
     print("Blue positions recorded")
     
-    with open("red_position_record.csv", "w", newline='') as file:
+    with open("./records/red_position_record.csv", "w", newline='') as file:
         writer = csv.writer(file)
+        writer.writerow(['Iteration', 'x_pos', 'y_pos'])
         for _ in range(len(red_x_positions)):
             writer.writerow([_, red_x_positions[_], red_y_positions[_]])
         red_x_positions.clear()
         red_y_positions.clear()
     print("Red positions recorded")
 
-    with open("distance_records.csv", "w", newline='') as file:
+    with open("./records/distance_records.csv", "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['Iteration', 'Distance', 'Difference from last'])
         for _ in range(len(distance_to)):
@@ -52,12 +54,17 @@ def draw_grid(event=None):
 
 def movement_loop():
     canvas.delete("nodes")
-    canvas.create_oval(node_blue.x_pos - node_blue.size, node_blue.y_pos - node_blue.size,
-                       node_blue.x_pos + node_blue.size, node_blue.y_pos + node_blue.size,
-                       fill="blue", tags="nodes")
-    canvas.create_oval(node_red.x_pos - node_red.size, node_red.y_pos - node_red.size,
-                       node_red.x_pos + node_red.size, node_red.y_pos + node_red.size,
-                       fill="red", tags="nodes")
+    canvas.delete("size")
+    if node_blue.size > 0:
+        canvas.create_oval(node_blue.x_pos - node_blue.size, node_blue.y_pos - node_blue.size,
+                        node_blue.x_pos + node_blue.size, node_blue.y_pos + node_blue.size,
+                        fill="blue", tags="nodes")
+        canvas.create_text(node_blue.x_pos, node_blue.y_pos, text=f"{node_blue.size}", fill="black", tags="size")
+    if node_red.size > 0:
+        canvas.create_oval(node_red.x_pos - node_red.size, node_red.y_pos - node_red.size,
+                        node_red.x_pos + node_red.size, node_red.y_pos + node_red.size,
+                        fill="red", tags="nodes")
+        canvas.create_text(node_red.x_pos, node_red.y_pos, text=f"{node_red.size}", fill="black", tags="size")
 
     if node_blue.distance_to(node_red) <= node_red.size*10:
         node_blue.move("aggressive", node_red)
