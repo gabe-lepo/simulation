@@ -25,9 +25,9 @@ class Node:
       distance_y = other.y_pos - self.y_pos
       
       if self.attitude == "patrol":
-         move_distance = STD_WEIGHT * 50
+         move_distance = STD_WEIGHT * 100
          self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
-         self.y_new_pos = self.y_pos + random.randint(-move_distance, move_distance) / STD_WEIGHT
+         self.y_new_pos = self.y_pos + random.randint(-move_distance, move_distance)
       elif self.attitude == "aggressive":
          self.x_new_pos = self.x_pos + int(distance_x * AGG_WEIGHT)
          self.y_new_pos = self.y_pos + int(distance_y * AGG_WEIGHT)
@@ -50,7 +50,7 @@ class Node:
    def check_wall_collision(self):
       if (self.x_new_pos + self.size > WIDTH) or (self.x_new_pos - self.size < 0):
          return True
-      if (self.y_new_pos + self.size > HEIGHT) or (self.y_new_pos + self.size < 0):
+      if (self.y_new_pos + self.size > HEIGHT) or (self.y_new_pos - self.size < 0):
          return True
       return False
    
