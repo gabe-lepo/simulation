@@ -2,9 +2,8 @@ import random
 from config import *
 
 class Node:
-   def __init__(self, attitude: str, size: int, x_pos: int, y_pos: int):
+   def __init__(self, size: int, x_pos: int, y_pos: int):
       #init the basic attributes
-      self.attitude = attitude
       self.size = size
       self.x_pos = x_pos
       self.y_pos = y_pos
@@ -18,6 +17,8 @@ class Node:
       self.bottom_border = self.y_pos + (1/2) * HEIGHT
       self.left_border = self.x_pos - (1/4) * WIDTH
       self.right_border = self.x_pos + (1/4) * WIDTH
+
+      self.attitude = ""
    
    def move(self, other):
       #define movement and check for wall collisions
@@ -26,7 +27,7 @@ class Node:
       
       if self.attitude == "patrol":
          move_distance = STD_WEIGHT * 100
-         self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance) + 1
+         self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
          self.y_new_pos = self.y_pos + random.randint(-move_distance, move_distance)
       elif self.attitude == "aggressive":
          self.x_new_pos = self.x_pos + int(distance_x * AGG_WEIGHT)

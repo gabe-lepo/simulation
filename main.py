@@ -11,8 +11,8 @@ window.title('Simulation')
 canvas = tk.Canvas(window, width=WIDTH, height=HEIGHT)
 canvas.pack()
 
-node_blue = Node(LIST[0]["ATTITUDE"], LIST[0]["SIZE"], LIST[0]["X_POS"], LIST[0]["Y_POS"])
-node_red = Node(LIST[1]["ATTITUDE"], LIST[1]["SIZE"], LIST[1]["X_POS"], LIST[1]["Y_POS"])
+node_blue = Node(LIST[0]["SIZE"], LIST[0]["X_POS"], LIST[0]["Y_POS"])
+node_red = Node(LIST[1]["SIZE"], LIST[1]["X_POS"], LIST[1]["Y_POS"])
 blue_x_positions = []
 blue_y_positions = []
 red_x_positions = []
@@ -90,8 +90,6 @@ def movement_loop():
     
     node_blue.move(node_red)
     node_red.move(node_blue)
-    
-    
 
     if node_blue.size == 0 or node_red.size == 0:
         canvas.delete("nodes")
@@ -106,11 +104,12 @@ def movement_loop():
                                text="Red Wins", fill="white")
         window.after(REFRESH_MS, movement_loop)
     else:
-        distance_to.append(node_blue.distance_to(node_red))
         blue_x_positions.append(node_blue.x_pos)
         blue_y_positions.append(node_blue.y_pos)
         red_x_positions.append(node_red.x_pos)
         red_y_positions.append(node_red.y_pos)
+        distance_to.append(node_blue.distance_to(node_red))
+
         window.after(REFRESH_MS, movement_loop)
     
 canvas.bind("<Configure>", draw_grid)
