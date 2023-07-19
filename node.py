@@ -40,6 +40,7 @@ class Node:
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
       if self.check_wall_collision():
+         #print(f"Hit a border at {self.x_pos}, {self.y_pos}")
          self.x_pos = self.x_last_pos
          self.y_pos = self.y_last_pos
       else:
@@ -47,9 +48,9 @@ class Node:
          self.y_pos = self.y_new_pos
 
    def check_wall_collision(self):
-      if (self.x_new_pos + self.size > self.right_border) or (self.x_new_pos - self.size < self.left_border):
+      if (self.x_new_pos + self.size > WIDTH) or (self.x_new_pos - self.size < 0):
          return True
-      if (self.y_new_pos + self.size > self.bottom_border) or (self.y_new_pos + self.size < self.top_border):
+      if (self.y_new_pos + self.size > HEIGHT) or (self.y_new_pos + self.size < 0):
          return True
       return False
    
