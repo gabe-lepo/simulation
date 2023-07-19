@@ -26,7 +26,7 @@ class Node:
       
       if self.attitude == "patrol":
          move_distance = STD_WEIGHT * 100
-         self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
+         self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance) + 1
          self.y_new_pos = self.y_pos + random.randint(-move_distance, move_distance)
       elif self.attitude == "aggressive":
          self.x_new_pos = self.x_pos + int(distance_x * AGG_WEIGHT)
@@ -36,6 +36,9 @@ class Node:
          self.x_new_pos = self.x_pos - int(distance_x * DEF_WEIGHT)
          self.y_new_pos = self.y_pos - int(distance_y * DEF_WEIGHT)
          self.feed_on(other)
+      elif self.attitude == "dead":
+         self.x_new_pos = self.x_last_pos
+         self.y_new_pos = self.y_last_pos
 
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
@@ -55,7 +58,7 @@ class Node:
       return False
    
    def feed_on(self, other):
-      if self.distance_to(other) <= self.size + other.size and other.size > 0:
+      if self.distance_to(other) <= self.size + other.size and not(other.size == 0):
          self.size += 1
          other.size -= 1
    
