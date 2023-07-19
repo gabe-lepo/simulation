@@ -1,8 +1,7 @@
 config = {}
 
-MOVERANGE = config.get('MOVERANGE', 1)
-WIDTH = config.get('WIDTH', 800)
-HEIGHT = config.get('HEIGHT', 600)
+WIDTH = config.get('WIDTH', 1000)
+HEIGHT = config.get('HEIGHT', 1000)
 REFRESH_MS = config.get('REFRESH_MS', 50)
 SIZE = config.get('SIZE', 15)
 AGG_WEIGHT = config.get('AGG_WEIGHT', 0.1)

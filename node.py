@@ -25,10 +25,6 @@ class Node:
       if type == "random":
          self.x_new_pos = random.randint(0 + SIZE, WIDTH - SIZE)
          self.y_new_pos = random.randint(0 + SIZE, HEIGHT - SIZE)
-      elif type == "standard":
-         self.x_new_pos = self.x_pos + random.choice([-MOVERANGE, MOVERANGE])
-         self.y_new_pos = self.y_pos + random.choice([-MOVERANGE, MOVERANGE])
-         self.check_wall_collision()
       else:
          distance_x = other.x_pos - self.x_pos
          distance_y = other.y_pos - self.y_pos
