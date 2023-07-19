@@ -30,8 +30,8 @@ class Node:
          self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
          self.y_new_pos = self.y_pos + random.randint(-move_distance, move_distance)
       elif self.attitude == "aggressive":
-         self.x_new_pos = self.x_pos + int(distance_x * AGG_WEIGHT)
-         self.y_new_pos = self.y_pos + int(distance_y * AGG_WEIGHT)
+         self.x_new_pos = self.x_pos + (1/2) * int(distance_x * AGG_WEIGHT)
+         self.y_new_pos = self.y_pos + (1/2) * int(distance_y * AGG_WEIGHT)
          self.feed_on(other)
       elif self.attitude == "defensive":
          self.x_new_pos = self.x_pos - int(distance_x * DEF_WEIGHT)
