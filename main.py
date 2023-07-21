@@ -3,7 +3,6 @@ import csv
 from node import Node
 
 from config import *
-from node_list import LIST
 
 window = tk.Tk()
 window.title('Simulation')
@@ -11,8 +10,8 @@ window.title('Simulation')
 canvas = tk.Canvas(window, width=WIDTH, height=HEIGHT)
 canvas.pack()
 
-node_blue = Node(LIST[0]["SIZE"], LIST[0]["X_POS"], LIST[0]["Y_POS"])
-node_red = Node(LIST[1]["SIZE"], LIST[1]["X_POS"], LIST[1]["Y_POS"])
+node_blue = Node(SIZE, (1/4) * WIDTH, (1/2) * HEIGHT)
+node_red = Node(SIZE, (3/4) * WIDTH, (1/2)*HEIGHT)
 blue_x_positions = []
 blue_y_positions = []
 red_x_positions = []
