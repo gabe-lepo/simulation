@@ -1,5 +1,5 @@
 # simulation
-The purpose of this project is to get better at using class abstraction. I dont want the OO design to become too granular, but I also dont want to dump all the code in a single main.py. Other than this, it's fun to watch the dots behave in a controlled random environment.
+The purpose of this project is to get better at using class abstraction. I dont want the OO design to become too granular, but I also dont want to dump all the code in a single main.py. Other than this, it's fun to watch the dots behave in a controlled random environment. Also I'm using the git CLI to commit/push changes. Trying to get better at using this git system.
 
 # TODO
 - Automatically evenly distribute node positions on screen and grid zones given number of nodes
