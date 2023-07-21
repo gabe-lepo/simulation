@@ -3,12 +3,12 @@ import random
 
 LIST = [
     {
-      "SIZE": random.randint(SIZE, SIZE*4),
+      "SIZE": SIZE,
       "X_POS": (1/4)*WIDTH,
       "Y_POS": (1/2)*HEIGHT
     },
     {
-      "SIZE": random.randint(SIZE, SIZE*4),
+      "SIZE": SIZE,
       "X_POS": (3/4)*WIDTH,
       "Y_POS": (1/2)*HEIGHT
     }
