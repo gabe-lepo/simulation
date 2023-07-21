@@ -71,18 +71,12 @@ def movement_loop():
     # Draw stuff
     if node_blue.size > 0:
         canvas.create_oval(node_blue.x_pos - node_blue.size, node_blue.y_pos - node_blue.size,
-                        node_blue.x_pos + node_blue.size, node_blue.y_pos + node_blue.size,
-                        fill="blue", tags="nodes")
+                           node_blue.x_pos + node_blue.size, node_blue.y_pos + node_blue.size,
+                           fill="blue", tags="nodes")
     if node_red.size > 0:
         canvas.create_oval(node_red.x_pos - node_red.size, node_red.y_pos - node_red.size,
-                        node_red.x_pos + node_red.size, node_red.y_pos + node_red.size,
-                        fill="red", tags="nodes")
-    if node_blue.attitude == "aggressive":
-        canvas.create_line(node_blue.x_pos, node_blue.y_pos, node_red.x_pos, node_red.y_pos,
-                           fill="black", tags="target")
-    if node_red.attitude == "aggressive":
-        canvas.create_line(node_red.x_pos, node_red.y_pos, node_blue.x_pos, node_blue.y_pos,
-                           fill="white", tags="target")
+                           node_red.x_pos + node_red.size, node_red.y_pos + node_red.size,
+                           fill="red", tags="nodes")
 
     # Red attitudes
     if (node_blue.x_pos + node_blue.size > (WIDTH / 2) - node_blue.size) and (node_blue.size > 0):
@@ -102,9 +96,11 @@ def movement_loop():
     if node_red.size == 0:
         node_red.attitude = "dead"
     
-    node_blue.move(node_red)
+    # Move
     node_red.move(node_blue)
-
+    node_blue.move(node_red)
+    
+    # Check win cons
     if node_blue.size == 0 or node_red.size == 0:
         canvas.delete("nodes")
         canvas.create_rectangle((1/2) * WIDTH - 150, (1/2) * HEIGHT - 75,
