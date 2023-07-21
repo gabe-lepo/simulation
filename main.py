@@ -22,7 +22,7 @@ distance_to = []
 def cleanup():
     window.destroy()
 
-    with open("./records/blue_position_record.csv", "w", newline='') as file:
+    with open("./records/blue_position.csv", "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['Iteration', 'x_pos', 'y_pos'])
         for _ in range(len(blue_x_positions)):
@@ -30,7 +30,7 @@ def cleanup():
         blue_x_positions.clear()
         blue_y_positions.clear()
     
-    with open("./records/red_position_record.csv", "w", newline='') as file:
+    with open("./records/red_position.csv", "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['Iteration', 'x_pos', 'y_pos'])
         for _ in range(len(red_x_positions)):
@@ -38,7 +38,7 @@ def cleanup():
         red_x_positions.clear()
         red_y_positions.clear()
 
-    with open("./records/distance_records.csv", "w", newline='') as file:
+    with open("./records/distance.csv", "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['Iteration', 'Distance', 'Difference from last'])
         for _ in range(len(distance_to)):
