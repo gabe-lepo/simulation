@@ -29,8 +29,7 @@ class Node:
          move_distance = STD_WEIGHT * 50
 
          if self.x_last_pos <= self.x_pos:
-            # Tendency to increase y_pos for testing
-            self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance*2)
+            self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
          else:
             self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
 
