@@ -1,4 +1,5 @@
 from config import *
+import tkinter
 
 LIST = [
     {
