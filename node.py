@@ -29,6 +29,7 @@ class Node:
          move_distance = STD_WEIGHT * 50
 
          if self.x_last_pos <= self.x_pos:
+            # Tendency to increase y_pos for testing
             self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance*2)
          else:
             self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
@@ -59,19 +60,28 @@ class Node:
 
       self.x_last_pos = self.x_pos
       self.y_last_pos = self.y_pos
-      if self.check_wall_collision():
+      if self.check_collision():
          #print(f"Hit a border at {self.x_pos}, {self.y_pos}")
          self.x_pos = self.x_last_pos
          self.y_pos = self.y_last_pos
       else:
          self.x_pos = self.x_new_pos
          self.y_pos = self.y_new_pos
-
-   def check_wall_collision(self):
+   
+   def check_collision(self):
+      # Check for wall collision
       if (self.x_new_pos + self.size > WIDTH) or (self.x_new_pos - self.size < 0):
          return True
       if (self.y_new_pos + self.size > HEIGHT) or (self.y_new_pos - self.size < 0):
          return True
+   
+      # Check node collision
+      #if other == self:
+      #   return False
+      #distance = ((self.x_new_pos - other.x_new_pos) ** 2 + (self.y_new_pos - other.y_new_pos) ** 2) ** 0.5
+      #if distance <= self.size + other.size:
+      #   return True
+      
       return False
    
    def feed_on(self, other):
