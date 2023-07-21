@@ -26,17 +26,33 @@ class Node:
       distance_y = other.y_pos - self.y_pos
       
       if self.attitude == "patrol":
-         move_distance = STD_WEIGHT * 100
-         self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
+         move_distance = STD_WEIGHT * 50
+
+         if self.x_last_pos <= self.x_pos:
+            self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance*2)
+         else:
+            self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
+
          self.y_new_pos = self.y_pos + random.randint(-move_distance, move_distance)
       elif self.attitude == "aggressive":
          self.x_new_pos = self.x_pos + (1/2) * int(distance_x * AGG_WEIGHT)
          self.y_new_pos = self.y_pos + (1/2) * int(distance_y * AGG_WEIGHT)
          self.feed_on(other)
       elif self.attitude == "defensive":
-         self.x_new_pos = self.x_pos - int(distance_x * DEF_WEIGHT)
-         self.y_new_pos = self.y_pos - int(distance_y * DEF_WEIGHT)
-         self.feed_on(other)
+         move_distance = 3
+         defensive_distance = SIZE
+         distance_to_other = ((distance_x) ** 2 + (distance_y) ** 2) ** 0.5
+         
+         if distance_to_other < defensive_distance:
+            dx_normalized = distance_x / distance_to_other if distance_to_other > 0 else 0
+            dy_normalized = distance_y / distance_to_other if distance_to_other > 0 else 0
+
+            movement_speed = 3
+            self.x_new_pos = self.x_pos - int(dx_normalized * movement_speed)
+            self.y_new_pos = self.y_pos - int(dy_normalized * movement_speed)
+         else:
+            self.x_new_pos = self.x_pos + random.randint(-move_distance, move_distance)
+            self.y_new_pos = self.y_pos + random.randint(-move_distance, move_distance)
       elif self.attitude == "dead":
          self.x_new_pos = self.x_last_pos
          self.y_new_pos = self.y_last_pos

@@ -54,6 +54,7 @@ def draw_grid(event=None):
 def movement_loop():
     canvas.delete("nodes")
     canvas.delete("menu")
+    canvas.delete("target")
 
     # Blue menu
     canvas.create_text((1/4) * WIDTH, 10,
@@ -67,6 +68,7 @@ def movement_loop():
     canvas.create_text((3/4) * WIDTH, 25,
                        text=f"Red Attitude: {node_red.attitude}", fill="black", tags="menu")
 
+    # Draw stuff
     if node_blue.size > 0:
         canvas.create_oval(node_blue.x_pos - node_blue.size, node_blue.y_pos - node_blue.size,
                         node_blue.x_pos + node_blue.size, node_blue.y_pos + node_blue.size,
@@ -75,14 +77,26 @@ def movement_loop():
         canvas.create_oval(node_red.x_pos - node_red.size, node_red.y_pos - node_red.size,
                         node_red.x_pos + node_red.size, node_red.y_pos + node_red.size,
                         fill="red", tags="nodes")
+    if node_blue.attitude == "aggressive":
+        canvas.create_line(node_blue.x_pos, node_blue.y_pos, node_red.x_pos, node_red.y_pos,
+                           fill="black", tags="target")
+    if node_red.attitude == "aggressive":
+        canvas.create_line(node_red.x_pos, node_red.y_pos, node_blue.x_pos, node_blue.y_pos,
+                           fill="white", tags="target")
 
-    node_blue.attitude = "patrol"
-
+    # Red attitudes
     if (node_blue.x_pos + node_blue.size > (WIDTH / 2) - node_blue.size) and (node_blue.size > 0):
         node_red.attitude = "aggressive"
     else:
         node_red.attitude = "patrol"
+
+    # Blue attitudes
+    if (node_red.attitude == "aggressive"):
+        node_blue.attitude = "defensive"
+    else:
+        node_blue.attitude = "patrol"
     
+    # Check if dead
     if node_blue.size == 0:
         node_blue.attitude = "dead"
     if node_red.size == 0:
